@@ -1,30 +1,40 @@
 pipeline{
  agent any
  stages{
- when{
- expression{
- $BRANCH_NAME == 'master'
- }
- }
- stage('build for master'){
- steps{
- echo ' Build for master'
- }
- }
- when{
- expression{
- $BRANCH_NAME == 'dev'
- }
- stage('Build for dev'){
- steps{
- echo 'build for dev'
- }
- }
- }
- when{
- expression{
- $BRANCH_NAME == 'feature'
- }
- }
- }
-}
+    stage('common'){
+      steps{
+      echo 'common for all'
+      }
+    }
+    stage('build for master'){
+       when{
+            expression{
+                BRANCH_NAME == 'master'
+            }
+            } 
+       steps{
+            echo ' Build for master'
+            }
+    }
+    stage('build for dev'){
+       when{
+            expression{
+                BRANCH_NAME == 'dev'
+            }
+            } 
+       steps{
+            echo ' Build for dev'
+            }
+    }
+    stage('build for feature'){
+       when{
+            expression{
+                BRANCH_NAME == 'feature'
+            }
+            } 
+       steps{
+            echo ' Build for feature'
+            }
+    }
+   }
+  }
